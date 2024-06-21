@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>AngularJS Filters Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.name = "John Doe";
+            $scope.amount = 1234.567;
+            $scope.date = new Date();
+            $scope.items = [
+                {name: 'Apple', price: 1.2},
+                {name: 'Banana', price: 2.5},
+                {name: 'Cherry', price: 3.0}
+            ];
+            $scope.text = "angularjs is great!";
+        });
+
+        app.filter('customCapitalize', function() {
+            return function(input) {
+                if (input) {
+                    return input.replace(/\b\w/g, function (char) {
+                        return char.toUpperCase();
+                    });
+                }
+                return input;
+            };
+        });
+    </script>
+</head>
+<body ng-controller="myCtrl">
+
+    <h2>Uppercase Filter</h2>
+    <p>{{ name | uppercase }}</p>
+
+    <h2>Currency Filter</h2>
+    <p>{{ amount | currency }}</p>
+
+    <h2>Date Filter</h2>
+    <p>{{ date | date:'fullDate' }}</p>
+
+    <h2>JSON Filter</h2>
+    <pre>{{ items | json }}</pre>
+
+    <h2>Custom Filter</h2>
+    <p>{{ text | customCapitalize }}</p>
+
+</body>
+</html>
